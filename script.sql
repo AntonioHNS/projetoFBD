@@ -1,52 +1,59 @@
-create schema fabricacao;
-use fabricacao;
+CREATE DATABASE FABRICACAO;
+USE FABRICACAO;
 
-create table Processo (
-	Cod_Processo int primary key auto_increment,
-    Nome text
+CREATE TABLE PROCESSO (
+	COD_PROCESSO INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    NOME VARCHAR(20) NOT NULL
 );
 
-create table Produto (
-	Cod_Produto int primary key auto_increment,
-    Descricao text,
-    Cod_Processo int,
-    foreign key (Cod_Processo) references Processo(Cod_Processo)
+CREATE TABLE PRODUTO (
+	COD_PRODUTO INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    DESCRICAO VARCHAR(20) NOT NULL UNIQUE,
+    TIPO CHAR(1) NOT NULL, 
+    COD_PROCESSO INTEGER NOT NULL,
+    
+    FOREIGN KEY (COD_PROCESSO) REFERENCES PROCESSO(COD_PROCESSO)
 );
 
-create table Composicao (
-	Cod_Produtobase int,
-    Cod_Produtosecundario int,
-    Quantidade int,
-    foreign key (Cod_Produtobase) references Produto(Cod_Produto),
-    foreign key (Cod_Produtosecundario) references Produto(Cod_Produto)
+CREATE TABLE COMPOSICAO (
+	COD_PRODUTO INTEGER NOT NULL,
+    COD_COMPONENTE INTEGER NOT NULL,
+    QUANTIDADE DOUBLE NOT NULL,
+    
+    FOREIGN KEY (COD_PRODUTO) REFERENCES PRODUTO (COD_PRODUTO),
+    FOREIGN KEY (COD_COMPONENTE) REFERENCES PRODUTO (COD_PRODUTO)
 );
 
-create table Fornecedor (
-	Cod_Fornecedor int primary key auto_increment,
-    Nome text
+CREATE TABLE FORNECEDOR (
+	COD_FORNECEDOR INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    NOME VARCHAR(20) UNIQUE NOT NULL
 );
 
-create table Insumo (
-	Cod_Insumo int primary key auto_increment,
-    Cod_Produto int,
-    Cod_Fornecedor int,
-    Prazo_Entrega text,
-    foreign key (Cod_Produto) references Produto(Cod_Produto),
-    foreign key (Cod_Fornecedor) references Fornecedor(Cod_Fornecedor)
+CREATE TABLE COMPRADO_NO (
+	COD_PRODUTO INTEGER NOT NULL,
+    COD_FORNECEDOR INTEGER NOT NULL,
+    PRAZO_ENTREGA VARCHAR(20) NOT NULL,
+    
+    FOREIGN KEY (COD_PRODUTO) REFERENCES FORNECEDOR(COD_FORNECEDOR)
+);
+
+CREATE TABLE TAREFA (
+	COD_TAREFA INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    TEMPO VARCHAR(20) NOT NULL,
+    NOME VARCHAR(20) NOT NULL 
+);
+
+CREATE TABLE ORDEM_EXECUCAO (
+	COD_PROCESSO INTEGER NOT NULL,
+    COD_TAREFA INTEGER NOT NULL,
+    ORDEM INTEGER NOT NULL,
+    
+    FOREIGN KEY(COD_PROCESSO) REFERENCES PROCESSO(COD_PROCESSO),
+    FOREIGN KEY(COD_TAREFA) REFERENCES TAREFA(COD_TAREFA)
 );
 
 
-create table Tarefa (
-	Cod_Tarefa int primary key auto_increment,
-	Tempo text,
-    Nome text
-);
 
-create table Ordem_Execução (
-	Cod_Processo int,
-    Cod_Tarefa int,
-    Ordem int,
-    foreign key (Cod_Processo) references Processo(Cod_Processo),
-    foreign key (Cod_Tarefa) references Tarefa(Cod_Tarefa)
-);
+
+
 
