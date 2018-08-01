@@ -65,23 +65,23 @@ INSERT INTO PROCESSO (NOME) VALUES
 ('Salgadinhos extrusados');
 
 INSERT INTO TAREFA (TEMPO, NOME) VALUES 
-(240, 'Cozinhar o milho'), 		#1
-(60, 'Misturar trigo e água'),  #2
-(15,'Esticar a massa'), 		#3
-(30,'Moer grãos de milho'),		#4
-(10, 'Cortar a massa'),			#5
-(5,'Receber coloração'), 		#6
-(10,'Assar a massa'),			#7
-(5, 'Fritar em oléo vegetal'),	#8
-(2,'Empacotar'),				#9
-(10, 'Aromatizar'),				#10
-(45,'Secar massa'),				#11
-(10, 'Lavar batatas'),			#12
-(5, 'Descascar batatas'),		#13
-(5, 'Cortar batatas'),			#14
-(10, 'Cozinhar batatas'),		#15
-(5 , 'Prensar massa'),			#16
-(5 , 'Esfriar massa');			#17
+(240, 'Cozinhar o milho'),
+(60, 'Misturar trigo e água'),  
+(15,'Esticar a massa'), 		
+(30,'Moer grãos de milho'),		
+(10, 'Cortar a massa'),			
+(5,'Receber coloração'), 		
+(10,'Assar a massa'),			
+(5, 'Fritar em oléo vegetal'),	
+(2,'Empacotar'),				
+(10, 'Aromatizar'),				
+(45,'Secar massa'),				
+(10, 'Lavar batatas'),			
+(5, 'Descascar batatas'),		
+(5, 'Cortar batatas'),			
+(10, 'Cozinhar batatas'),		
+(5 , 'Prensar massa'),			
+(5 , 'Esfriar massa');			
 
 INSERT INTO ORDEM_EXECUCAO (COD_PROCESSO,COD_TAREFA,ORDEM) VALUES 
 (1,1,1),(1,4,2),(1,5,3),(1,7,4),(1,8,5),(1,10,6),(1,9,7), 
