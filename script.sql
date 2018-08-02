@@ -165,8 +165,34 @@ and producao.cod_produto = produto.cod_produto
 and producao.cod_processo = ordem_execucao.cod_processo
 and tarefa.cod_tarefa = ordem_execucao.cod_tarefa;
 
+#consulta que retorna em ordem os componentes de um produto
+select p.descricao, pr.descricao
+from composicao as c
+natural join produto as p
+inner join produto as pr 
+on pr.cod_produto = c.cod_componente and p.descricao = "Fandangos Queijo";
 
+#consulta que retorna produtos e seus respectivos processos
+select produto.descricao, processo.nome
+from producao
+natural join produto
+natural join processo;
 
+#consulta que retorna produtos e seus fornecedores
+select produto.descricao, fornecedor.nome, comprado_no.prazo_entrega
+from comprado_no
+inner join produto
+on produto.cod_produto = comprado_no.cod_produto
+natural join fornecedor;
 
+#consulta que retorna os insumos
+select descricao
+from produto 
+where produto.tipo = "I";
 
-
+select tarefa.nome
+from  ordem_execucao
+natural join tarefa
+where ordem_execucao.cod_processo in (select cod_processo 
+from processo
+where nome = 'Salgadinhos assados');
