@@ -11,7 +11,6 @@ Suponhamos um arquivo teste.txt:
 ../teste.txt: significa que o arquivo teste.txt está na pasta imediatamente acima da pasta em que o script PHP está rodando
 */
 ?>
-<?// require_once 'php_action/db_connect.php'; ?>
 
 <!DOCTYPE html>
 <html>
