@@ -38,7 +38,7 @@ Suponhamos um arquivo teste.txt:
 			</tr>
 			<tr>
 				<th>Para as opções de Produtos: </th>
-				<td><br><a href="Lista_produtos.php"><button class="MeuInput" type="button">Produto </button></a>
+				<td><br><a href="CRUD_Produtos.php"><button class="MeuInput" type="button">Produto </button></a>
 			</tr>
 			<tr>
 				<th>Para as opções de Produção: </th>

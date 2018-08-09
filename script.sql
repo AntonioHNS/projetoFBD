@@ -9,15 +9,9 @@ CREATE TABLE PROCESSO (
 CREATE TABLE PRODUTO (
 	COD_PRODUTO INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
     DESCRICAO VARCHAR(30) NOT NULL UNIQUE,
-    TIPO CHAR(1) NOT NULL
-);
-
-CREATE TABLE PRODUCAO (
-	COD_PRODUTO INTEGER NOT NULL,
-    COD_PROCESSO INTEGER NOT NULL,
+    COD_PROCESSO INTEGER,
     
-    FOREIGN KEY (COD_PROCESSO) REFERENCES PROCESSO(COD_PROCESSO) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (COD_PRODUTO) REFERENCES PRODUTO(COD_PRODUTO) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (COD_PROCESSO) REFERENCES PROCESSO(COD_PROCESSO) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE COMPOSICAO (
@@ -95,24 +89,24 @@ INSERT INTO FORNECEDOR (NOME) VALUES
 ('CEASA');
 
 INSERT INTO PRODUTO (DESCRICAO, TIPO) VALUES 
-('Milho','I'),
-('Trigo','I'),
-('Aromatizante queijo','I'),
-('Aromatizante bacon','I'),
-('Aromatizante presunto','I'),
-('Aromatizante churrasco','I'),
-('Aromatizante requeijão','I'),
-('Corante Marrom','I'),
-('Batata','I'),
-('Fandangos Queijo','P'),
-('Fandangos Presunto','P'),
-('Doritos','P'),
-('Baconzitos','P'),
-('Ruffles Churrasco','P'),
-('Ruffles Tradicional','P'),
-('Cheetos Requeijão','P'),
-('Sensações','P'),
-('Pingo de ouro bacon','P');
+('Milho',null),
+('Trigo',null),
+('Aromatizante queijo',null),
+('Aromatizante bacon',null),
+('Aromatizante presunto',null),
+('Aromatizante churrasco',null),
+('Aromatizante requeijão',null),
+('Corante Marrom',null),
+('Batata',null),
+('Fandangos Queijo',1),
+('Fandangos Presunto',1),
+('Doritos',2),
+('Baconzitos',2),
+('Ruffles Churrasco',3),
+('Ruffles Tradicional',3),
+('Cheetos Requeijão',4),
+('Sensações',3),
+('Pingo de ouro bacon',1);
 
 INSERT INTO PRODUCAO(COD_PRODUTO,COD_PROCESSO) VALUES 
 (10,1),(11,1),(18,1),

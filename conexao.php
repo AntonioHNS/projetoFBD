@@ -1,9 +1,21 @@
 <?php
 
+    //QUERIES 
+    $inserirProduto = "insert into produto (descricao, cod_processo) 
+                        values (?, (select cod_processo from processo where nome = ?))";
+
+    $todosOsProdutos = "select * from produto where cod_processo is not null";
+    
+    $todosOsProcessos = "select nome from processo";
+
+    $getProcesso = "select cod_processo from processo where nome = ?";
+
+
+
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $id = (isset($_POST["id"]) && $_POST["id"] != null) ? $_POST["id"] : "";
         $descricao = (isset($_POST["descricao"]) && $_POST["descricao"] != null) ? $_POST["descricao"] : "";
-        $tipo = (isset($_POST["tipo"]) && $_POST["tipo"] != null) ? $_POST["tipo"] : "";
+        $processo = (isset($_POST["processo"]) && $_POST["processo"] != null) ? $_POST["processo"] : "";
         
     } else if (!isset($id)) {
         // Se não se não foi setado nenhum valor para variável $id
@@ -21,28 +33,32 @@
  
     }
 
-    if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "criaProduto" && $descricao != "") {
+    if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "criaProduto" && $descricao != "" && $processo !="") {
         try {
-            $stmt = $conexao->prepare("INSERT INTO produto (descricao, tipo) VALUES (?, 'P')");
-            $stmt->bindParam(1, $descricao);
-         //$stmt->bindParam(2, 'P');
-             
-            if ($stmt->execute()) {
-                if ($stmt->rowCount() > 0) {
-                    echo "Dados cadastrados com sucesso!";
-                    $id = null;
-                    $descricao = null;
+            $verificacao = $conexao->prepare($getProcesso);
+            $verificacao->bindParam(1,$processo);
+            if($verificacao->execute()){
+                if ($verificacao->fetch(PDO::FETCH_OBJ) != null){
+                    
+                    $stmt = $conexao->prepare($inserirProduto);
+                    $stmt->bindParam(1, $descricao);
+                    $stmt->bindParam(2, $processo);
+                    if ($stmt->execute()) {
+                        if ($stmt->rowCount() > 0) {
+                            echo "Dados cadastrados com sucesso!";
+                            $cod_produto = null;
+                            $descricao = null;
+                    } else {
+                        echo "Erro ao tentar efetivar cadastro";
+                    } 
                 } else {
-                    echo "Erro ao tentar efetivar cadastro";
+                    echo "Esse processo não existe";
                 }
-            } else {
-                   throw new PDOException("Erro: Não foi possível executar a declaração sql");
             }
         } catch (PDOException $erro) {
             if ($erro->getCode() == 23000){
                 echo "Erro: esse produto já está cadastrado";
             }
-            
         }
     }
 
